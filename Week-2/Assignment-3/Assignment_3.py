@@ -1,6 +1,10 @@
 def avg(data):
+    totalProducts = len(data["products"])
+    totalPrice = 0
+    for i in range(totalProducts):
+        totalPrice += data["products"][i]["price"]
 
-    return -1
+    return round(totalPrice/totalProducts, 3)
 
 
 print(avg({
