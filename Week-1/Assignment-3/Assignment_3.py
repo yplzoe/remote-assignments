@@ -1,7 +1,7 @@
 def find_max(numbers):
     length = len(numbers)
     if length == 0:
-        return None
+        return -1
     cur_max = numbers[0]
     for i in range(length):
         if numbers[i] > cur_max:
