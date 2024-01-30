@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Sum</title>
+</head>
+<body>
+
+    <h1>Input A Number</h1>
+
+    <label for="inputBox">Enter a value:</label>
+    <input type="text" id="inputBox">
+    <button onclick="totalSum()">Sum</button>
+
+    <p id="output"></p>
+
+    <script>
+        function totalSum() {
+            var request = new XMLHttpRequest();
+            const num = document.getElementById('inputBox').value;
+            request.open('get',"http://127.0.0.1:3000/data?number="+num.toString(), true)
+            request.send()
+            request.onreadystatechange = function(){
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("output").innerHTML = this.responseText;
+                }
+            };
+            // request.onerror = reqError;
+        }
+    </script>
+
+</body>
+</html>
