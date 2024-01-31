@@ -42,7 +42,7 @@ def track_name():
         resp = make_response(redirect('/myName'))
         resp.set_cookie('userID', user)
     else:
-        resp = make_response(render_template("trackname.html"))
+        resp = make_response(redirect('/myName'))
     return resp
 
 
