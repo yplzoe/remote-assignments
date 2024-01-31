@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <form method = "POST">
+    <form action = "/trackName" method = "POST">
         <p><h3>Enter userID</h3></p>
         <p><input type = 'text' id = 'nm'/></p>
         <p><input type = 'submit' value = 'Login' onClick="get_name()"/></p>
@@ -16,13 +16,20 @@
         function get_name() {
             var request = new XMLHttpRequest();
             const name = document.getElementById('nm').value;
-            request.open('post',"http://127.0.0.1:3000/trackName?name="+name.toString(), true)
-            request.send()
+
+            // alert(name);
+            var params = 'name='+name.toString();
+            alert(params);
+            request.open('POST','http://127.0.0.1:3000/myName', true);
+            
             request.onreadystatechange = function(){
                     if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("output").innerHTML = this.responseText;
+                     alert(this.responseText);
                 }
             };
+            request.send(params);
+
+            // alert("here");
             // request.onerror = reqError;
         }
     </script>

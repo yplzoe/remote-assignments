@@ -18,7 +18,7 @@ def for_data():
 
 @app.route("/sum.html")
 def sum_of_data():
-    return redirect(url_for('static', filename='sum.html'))
+    return render_template("sum.html")
 
 @app.route("/myName")
 def get_name():
@@ -30,17 +30,19 @@ def get_name():
     
 @app.route("/trackName", methods = ['POST', 'GET'])
 def track_name():
+    print(request.path)
     user=request.args.get('name')
-    resp = make_response(redirect(url_for('static', filename='trackname.html')))
+    print(user)
+    # resp=make_response('hi')
+    resp = make_response(render_template("trackname.html"))
     if user!=None:
         resp.set_cookie('userID', user)
         return "{}".format(user)
     
-    if request.method == 'POST':
-        user = request.form['nm']
+    # if request.method == 'GET':
+    #     resp.set_cookie('userID', user)
+    #     return "{}".format(user)
     
-    
-    # resp.set_cookie('userID', user)
     return resp
 
 @app.route("/")
