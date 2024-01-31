@@ -23,26 +23,35 @@ def sum_of_data():
 @app.route("/myName")
 def get_name():
     user=request.cookies.get('userID')
-    if user!=None:
+    print(user)
+    if user != None:
         return "{}".format(user)
     else:
         return redirect('/trackName')
+        # return "hello"
     
 @app.route("/trackName", methods = ['POST', 'GET'])
 def track_name():
     print(request.path)
     user=request.args.get('name')
     print(user)
-    # resp=make_response('hi')
-    resp = make_response(render_template("trackname.html"))
-    if user!=None:
-        resp.set_cookie('userID', user)
-        return "{}".format(user)
+    if user != None:
+        resp=make_response('hi')
+        resp.set_cookie('userID', user, path='/myName')
+        return resp
+    else:
+        resp = make_response(render_template("trackname.html"))
+    # resp.set_cookie('userID', user)
+    # resp.set_cookie('userID', 'aaaa')
+    # if user != None:
+    #     print(user)
+    #     resp.set_cookie('userID', 'wtf')
+    #     print(resp)
+    #     return redirect('/myName')
     
     # if request.method == 'GET':
     #     resp.set_cookie('userID', user)
     #     return "{}".format(user)
-    
     return resp
 
 @app.route("/")
