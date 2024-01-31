@@ -11,27 +11,5 @@
         <p><input type = 'text' id = 'nm' name='name'/></p>
         <p><input type = 'submit' value = 'Login'/></p>
     </form>
-
-     <!-- <script>
-        function get_name() {
-            var request = new XMLHttpRequest();
-            const name = document.getElementById('nm').value;
-
-            // alert(name);
-            var params = 'name='+name.toString();
-            alert(params);
-            request.open('POST','http://127.0.0.1:3000/trackName?name='+name.toString(), true);
-            
-            request.onreadystatechange = function(){
-                    if (this.readyState == 4 && this.status == 200) {
-                     alert(this.responseText);
-                }
-            };
-            request.send();
-
-            // alert("here");
-            // request.onerror = reqError;
-        }
-    </script> -->
 </body>
 </html>
