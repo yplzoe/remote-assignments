@@ -18,13 +18,14 @@
         function totalSum() {
             var request = new XMLHttpRequest();
             const num = document.getElementById('inputBox').value;
+            var param='number='+num.toString();
             request.open('get',"http://127.0.0.1:3000/data?number="+num.toString(), true)
-            request.send()
             request.onreadystatechange = function(){
                     if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("output").innerHTML = this.responseText;
                 }
             };
+            request.send();
             // request.onerror = reqError;
         }
     </script>

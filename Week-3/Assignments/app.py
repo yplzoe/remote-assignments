@@ -30,8 +30,7 @@ def get_name():
     if user != None:
         return "{}".format(user)
     else:
-        return redirect('/trackName')
-        # return "hello"
+        return render_template("trackname.html")
 
 
 @app.route("/trackName", methods=['POST', 'GET'])
