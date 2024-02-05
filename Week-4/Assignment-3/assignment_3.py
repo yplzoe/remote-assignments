@@ -6,47 +6,49 @@ app = Flask(__name__)
 app.secret_key = "key"
 
 
-@app.route("/", methods=['get', 'post'])
+@app.route("/", methods=['GET', 'POST'])
 def homepage():
-    # get info of user
-    email = request.form.get('email')
-    pwd = request.form.get('password')
-    print(email, pwd)
-    btn = request.form.get('action')
-    print(btn)
+    if request.method == 'POST':
+        # get info of user
+        email = request.form.get('email')
+        pwd = request.form.get('password')
+        print(email, pwd)
+        btn = request.form.get('action')
+        print(btn)
 
-    if request.form.get('action') == 'sign-up':
-        print('sign up')
-        all_correct, exist_email, result = connect_sql.check_db(email, pwd)
-        if exist_email == False:
-            print('not in db')
-            connect_sql.add_to_db(email, pwd)
-            resp = make_response(redirect('/member_page'))
-            resp.set_cookie('email', email)
-            resp.set_cookie('pwd', pwd)
-            return resp
+        if request.form.get('action') == 'sign-up':
+            print('sign up')
+            all_correct, exist_email, result = connect_sql.check_db(email, pwd)
+            if exist_email == False:
+                print('not in db')
+                connect_sql.add_to_db(email, pwd)
+                resp = make_response(redirect('/member_page'))
+                resp.set_cookie('email', email)
+                resp.set_cookie('pwd', pwd)
+                return resp
+
+            else:
+                print('already in db')
+                flash('The email has been registered before.')
+
+        elif request.form.get('action') == 'sign-in':
+            print('sign in')
+            all_correct, exist_email, result = connect_sql.check_db(email, pwd)
+            if all_correct:
+                print('found in db')
+                resp = make_response(redirect('/member_page'))
+                resp.set_cookie('email', email)
+                resp.set_cookie('pwd', pwd)
+                return resp
+            elif exist_email:
+                print('wrong pwd')
+                flash('Wrong password.')
+            else:
+                print('cannot get info')
+                flash('The email has not been registered before.')
 
         else:
-            print('already in db')
-            flash('The email has been registered before.')
-
-    elif request.form.get('action') == 'sign-in':
-        print('sign in')
-        all_correct, exist_email, result = connect_sql.check_db(email, pwd)
-        if all_correct:
-            print('found in db')
-            resp = make_response(redirect('/member_page'))
-            resp.set_cookie('email', email)
-            resp.set_cookie('pwd', pwd)
-            return resp
-        elif exist_email:
-            print('wrong pwd')
-            flash('Wrong password.')
-        else:
-            print('cannot get info')
-
-    else:
-        print('error in button')
+            print('error in button')
 
     return render_template("home.html")
 

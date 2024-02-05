@@ -4,21 +4,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Week 4 Assignment 3</title>
   </head>
+
   <body>
     {% with messages = get_flashed_messages() %} {% if messages %} {% for
     message in messages %}
     <p>{{ message }}</p>
     {% endfor %} {% endif %} {% endwith %}
     <h1>Home Page</h1>
-    <form method="post" action="/">
+    <form method="POST">
       <label for="emailBox">Email: </label>
       <input type="text" id="emailBox" name="email" />
       <p></p>
       <label for="passwordBox">Password: </label>
       <input type="text" id="passwordBox" name="password" />
       <p></p>
-      <button name="action" value="sign-up">Sign-up</button>
-      <button name="action" value="sign-in">Sign-in</button>
+      <button type="submit" name="action" value="sign-up">Sign-up</button>
+      <button type="submit" name="action" value="sign-in">Sign-in</button>
     </form>
   </body>
 </html>
