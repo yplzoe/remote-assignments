@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script type="text/javascript" scr="func.js"></script> -->
+    <title>Assignment 2</title>
+  </head>
+  <body>
+    <label>Click to show table: </label>
+    <button
+      onclick="ajax('https://remote-assignment.s3.ap-northeast-1.amazonaws.com/products',
+    function(response){
+      render(response)
+    })"
+    >
+      Show Table
+    </button>
+    <p id="message"></p>
+    <table id="phone_data"></table>
+
+    <script>
+      function ajax(src, callback) {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log("ready to callback");
+            // document.getElementById("output").innerHTML = "success";
+          }
+        };
+        request.open("GET", src, true);
+
+        request.responseType = "json";
+
+        request.onload = function () {
+          callback(request.response);
+          console.log("complete ajax");
+        };
+
+        request.send();
+      }
+
+      function render(data) {
+        if (data.length != 0) {
+          const key = Object.keys(data[0]);
+          const key_num = key.length;
+          const data_num = data.length;
+          //create table
+          const tbl = document.createElement("table");
+          const tblBody = document.createElement("tbody");
+          //create cells
+          //headers
+          const headerRow = document.createElement("tr");
+          key.forEach((headerText) => {
+            const headerCell = document.createElement("th");
+            headerCell.textContent = headerText;
+            headerRow.append(headerCell);
+          });
+          tbl.appendChild(headerRow);
+
+          //data
+          for (let i = 0; i < data_num; i++) {
+            const row = document.createElement("tr");
+
+            for (let j = 0; j < key_num; j++) {
+              const cell = document.createElement("td");
+              const cellText = document.createTextNode(`${data[i][key[j]]}`);
+              cell.appendChild(cellText);
+              row.appendChild(cell);
+            }
+            tblBody.appendChild(row);
+          }
+
+          tbl.appendChild(tblBody);
+          document.body.appendChild(tbl);
+        } else {
+          document.getElementById("message").innerHTML = "There's no data.";
+        }
+      }
+    </script>
+  </body>
+</html>
