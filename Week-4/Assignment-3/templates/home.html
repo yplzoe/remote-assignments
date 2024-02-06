@@ -14,11 +14,11 @@
     <form method="POST">
       <label for="emailBox">Email: </label>
       <input
-        type="email"
-        pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
-        required
+        type="text"
         id="emailBox"
         name="email"
+        required
+        pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
       />
       <p></p>
       <label for="passwordBox">Password: </label>
