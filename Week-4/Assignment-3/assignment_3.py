@@ -53,7 +53,7 @@ def homepage():
     return render_template("home.html")
 
 
-@app.route("/member_page", methods=['get', 'post'])
+@app.route("/member_page", methods=['GET', 'POST'])
 def member_page():
     user_email = request.cookies.get('email')
     return render_template("member.html", email=user_email)
