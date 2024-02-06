@@ -12,10 +12,8 @@ def main():
 
     for i in range(1, 6):
         temp = threading.Thread(target=do_job, args=(i,))
+        temp.start()
         j_list.append(temp)
-
-    for ele in j_list:
-        ele.start()
 
     for ele in j_list:
         ele.join()
