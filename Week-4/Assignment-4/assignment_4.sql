@@ -11,7 +11,7 @@ USE assignment;
 SELECT * FROM article;
 -- 2. select articles from 7th to 12th sorted by id
 SELECT ar.*, us.id
-	FROM article as ar
-	INNER JOIN user AS us
-    ON ar.email=us.email
-    WHERE us.id>=7 and us.id<=12;
+FROM (SELECT * FROM article LIMIT 6, 6) AS ar
+INNER JOIN user as us
+ON ar.email=us.email
+ORDER BY us.id;
